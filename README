@@ -4,6 +4,7 @@ This is a tool that listens for SMTP connections and uses Microsoft Graph to sen
 
 ## usage
 
+`dotnet run` is enough to run locally on port 25. You'll see this in the code, I haven't updated to use configuration yet. I publish a different port when running in docker. 
 `dotnet publish --os linux --arch x64 /t:PublishContainer -c Release` to build the container - todo, add a dockerfile
 
 ## config
