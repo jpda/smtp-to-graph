@@ -1,0 +1,26 @@
+# smtp-to-graph
+
+This is a tool that listens for SMTP connections and uses Microsoft Graph to send emails. My specific use case is for a scanner that sends scanned documents via email. SMTP Auth required turning on a lot of additional tenant settings in Office 365, so this is intended to be a simple replacement for that.
+
+## usage
+
+`dotnet publish --os linux --arch x64 /t:PublishContainer -c Release` to build the container - todo, add a dockerfile
+
+## config
+
+Currently supports client credentials grant only. Register an app in AAD and grant it the application permission `Mail.Send`. Alternatively, use an interactive logon and persist the refresh token, this would be a much more secure option.
+
+## security
+
+There is none, so don't run this on the internet or any untrusted network. Anything that can submit SMTP to this will have the mail sent out using Office 365. It uses `SmtpServer` which has TLS and authentication options, but I haven't enabled them yet. todo - add a config option to enable them.
+
+## settings
+
+Settings are in a config section called `Graph`
+
+| Setting | ENV name | Description |
+| --- | --- | --- |
+| ClientId | `Graph__ClientId` | The AAD client ID to use when sending mail |
+| ClientSecret | `Graph__ClientSecret` | The AAD client secret to use when sending mail |
+| TenantId | `Graph__TenantId` | The AAD tenant ID to use when sending mail |
+| MailboxName | `Graph__MailboxName` | The mailbox to send from. |
